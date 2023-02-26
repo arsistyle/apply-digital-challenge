@@ -1,18 +1,23 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { HitsList } from './HitsList';
-import { HitsContext } from '../../context/HitsContext';
+
+import { fetchHits } from '../../app/slices/hitsSlices';
 
 import STYLES from './hits.module.css';
 
 export const HitsLayout = ({ filter }) => {
-  const { hits, loading } = useContext(HitsContext);
-  const { hits: hitsData, nbPages: pages } = hits || {};
+  const dispatch = useDispatch()
+  const { loading } = useSelector((state) => state.hits);
+
+  useEffect(() => {
+    dispatch(fetchHits({ query: '', page: 0, hitsPerPage: 8 }));
+  }, [dispatch]);
 
   return (
     <div className={STYLES.layout}>
       {loading && <div className={STYLES.preloader}></div>}
-      {/* <div className={STYLES.preloader}></div> */}
-      <HitsList data={hitsData} pages={pages} filter={filter} />
+      <HitsList filter={filter} />
     </div>
   );
 };

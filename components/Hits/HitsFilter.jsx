@@ -1,22 +1,29 @@
-import { useContext, useEffect, useState } from 'react';
-import { HitsContext } from '../../context/HitsContext';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFilters } from './useFilters';
+import { fetchHits } from '../../app/slices/hitsSlices';
 
 import STYLES from './hits.module.css';
-import { useFilters } from './useFilters';
 
 export const HitsFilter = () => {
-  const { setQuery, setPage } = useContext(HitsContext);
+  const { hitsPerPage } = useSelector((state) => state.hits);
+  const dispatch = useDispatch();
   const { filters, updateFilters } = useFilters();
   const [value, setValue] = useState(filters.query || '');
 
   const handleChange = ({ target }) => {
     setValue(target.value);
-    updateFilters({ query: target.value });
   };
 
   useEffect(() => {
-    setQuery(value);
-    setPage(0)
+    updateFilters({ query: value });
+    dispatch(
+      fetchHits({
+        query: value,
+        page: 0,
+        hitsPerPage
+      })
+    );
   }, [value]);
 
   return (

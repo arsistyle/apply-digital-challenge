@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-import { HitsContext } from '../../context/HitsContext';
 import { useFilters } from './useFilters';
+
+import { fetchHits } from '../../app/slices/hitsSlices';
 
 import STYLES from './hits.module.css';
 
 export const HitsPagination = () => {
-  const { hits, setPage } = useContext(HitsContext);
+  const { hitsPerPage, query, nbHits: items } = useSelector((state) => state.hits);
+  const dispatch = useDispatch();
   const { filters, updateFilters } = useFilters();
-  const { nbHits: items, hitsPerPage } = hits || {};
 
   const [currentPage, setCurrentPage] = useState(filters.page);
 
@@ -20,7 +22,13 @@ export const HitsPagination = () => {
   };
 
   useEffect(() => {
-    setPage(currentPage + 1);
+    dispatch(
+      fetchHits({
+        query,
+        page: currentPage,
+        hitsPerPage
+      })
+    );
   }, [currentPage]);
 
   return (

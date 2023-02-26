@@ -4,6 +4,7 @@ import STYLES from './hits.module.css';
 import { HitsItem } from './HitsItem';
 import { HitsFilter } from './HitsFilter';
 import { HitsPagination } from './HitsPagination';
+import { useSelector } from 'react-redux';
 
 /**
  * Component that displays a list of hits
@@ -14,13 +15,15 @@ import { HitsPagination } from './HitsPagination';
  * @returns {JSX.Element} - JSX element representing the list of hits
  */
 
-export const HitsList = ({ data, pages, filter = false }) => {
+export const HitsList = ({ filter = false }) => {
+  const { hits, pages } = useSelector((state) => state.hits);
+
 
   return (
     <>
       {filter && <HitsFilter />}
       <div className={STYLES.list}>
-        {data?.map((hit, key) => {
+        {hits?.map((hit, key) => {
           return <HitsItem data={hit} key={hit.story_id + key} />;
         })}
       </div>
