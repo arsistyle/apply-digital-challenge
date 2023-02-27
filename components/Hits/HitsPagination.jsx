@@ -1,3 +1,11 @@
+/**
+ * Component that displays pagination for a list of search results.
+ * Uses ReactPaginate library for pagination UI and fetches new hits data
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
@@ -16,6 +24,13 @@ export const HitsPagination = () => {
 
   const pageCount = Math.ceil(items / hitsPerPage) || 0;
 
+  /**
+   * Handler function for updating current page state and filters.
+   *
+   * @function handlePageClick
+   * @param {Object} event - The event object.
+   * @param {number} event.selected - The index of the selected page.
+   */
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
     updateFilters({ page: String(event.selected) });

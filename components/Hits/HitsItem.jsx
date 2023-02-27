@@ -1,3 +1,16 @@
+/**
+ * Renders a single item from the hits list.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - The data for the hit item.
+ * @param {string} props.data.author - The author of the item.
+ * @param {string} props.data.story_title - The title of the hit.
+ * @param {string} props.data.story_url - The URL of the hit.
+ * @param {string} props.data.created_at - The creation date of the hit.
+ * @returns {JSX.Element} - The rendered component.
+ */
+
 import React from 'react';
 import { IoHeartOutline, IoHeartSharp, IoTimeOutline } from 'react-icons/io5';
 

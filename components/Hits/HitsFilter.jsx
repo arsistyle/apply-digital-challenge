@@ -1,3 +1,10 @@
+/**
+ * A React component that renders a dropdown menu for filtering search results by technology.
+ *
+ * @component
+ * @return {JSX.Element}
+ */
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFilters } from './useFilters';
@@ -11,6 +18,13 @@ export const HitsFilter = () => {
   const { filters, updateFilters } = useFilters();
   const [value, setValue] = useState(filters.query || '');
 
+  /**
+   * Handler function for updating current query state and filters.
+   *
+   * @function handleChange
+   * @param {Object} event - The event object.
+   * @param {Object} event.target - The current target.
+   */
   const handleChange = ({ target }) => {
     setValue(target.value);
   };

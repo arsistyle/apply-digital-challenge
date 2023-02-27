@@ -1,3 +1,10 @@
+/**
+ * Menu component for main navigation
+ * 
+ * @constant {Array} NAV - List of al items in menu
+ * @returns {JSX.Element} - The React component that display the nav
+ */
+
 import { NavLink } from 'react-router-dom';
 import STYLES from './nav.module.css';
 

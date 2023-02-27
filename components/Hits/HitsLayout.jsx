@@ -1,5 +1,15 @@
+/**
+ * A React hook that fetches hits data from the HN Search API and displays it.
+ * 
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.filter - If true, displays the hits filter component.
+ * @returns {JSX.Element} - The React component that displays the hits.
+ */
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { HitsList } from './HitsList';
 
 import { fetchHits } from '../../app/slices/hitsSlices';
@@ -7,7 +17,7 @@ import { fetchHits } from '../../app/slices/hitsSlices';
 import STYLES from './hits.module.css';
 
 export const HitsLayout = ({ filter }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.hits);
 
   useEffect(() => {
@@ -20,4 +30,9 @@ export const HitsLayout = ({ filter }) => {
       <HitsList filter={filter} />
     </div>
   );
+};
+
+// PropTypes
+HitsLayout.propTypes = {
+  filter: PropTypes.bool
 };

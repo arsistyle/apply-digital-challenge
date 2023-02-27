@@ -1,33 +1,38 @@
-import React from 'react';
-
-import STYLES from './hits.module.css';
-import { HitsItem } from './HitsItem';
-import { HitsFilter } from './HitsFilter';
-import { HitsPagination } from './HitsPagination';
-import { useSelector } from 'react-redux';
-
 /**
  * Component that displays a list of hits
- * @param {array} data - Array of objects representing each hit
- * @param {number} total - Total number of hits in the list
- * @param {number} pages - Total number of hit pages available
- * @param {boolean} filter - If true, displays the hits filter component
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.filter - If true, displays the hits filter component
  * @returns {JSX.Element} - JSX element representing the list of hits
  */
 
+import React from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { HitsItem } from './HitsItem';
+import { HitsFilter } from './HitsFilter';
+import { HitsPagination } from './HitsPagination';
+
+import STYLES from './hits.module.css';
+
 export const HitsList = ({ filter = false }) => {
   const { hits, pages } = useSelector((state) => state.hits);
-
 
   return (
     <>
       {filter && <HitsFilter />}
       <div className={STYLES.list}>
-        {hits?.map((hit, key) => {
-          return <HitsItem data={hit} key={hit.story_id + key} />;
+        {hits?.map((hit) => {
+          return <HitsItem data={hit} key={hit.story_id} />;
         })}
       </div>
       <HitsPagination totalPages={pages} />
     </>
   );
+};
+
+// PropTypes
+HitsList.propTypes = {
+  filter: PropTypes.bool
 };
