@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.button {
+  display: inline-flex;
+  padding: .2rem .4rem;
+  text-decoration: none;
+  color: #606060;
+  border: 1px solid #606060;
+  transition: all ease 200ms;
+}
+
+.button:hover {
+  background: rgba(60,60,60,.1)
+}
+
+.button:first-of-type {
+  border-radius: .3rem 0 0 .3rem;
+}
+
+.button:last-of-type {
+  border-radius: 0 .3rem .3rem 0;
+  border-left: none;
+}
+
+.buttonActive {
+  border-color: #1797ff;
+  color: #1797ff;
+}
